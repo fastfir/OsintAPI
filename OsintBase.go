@@ -12,6 +12,12 @@ func main() {
 	router.GET("/", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "index.html", gin.H{"placeholder": 1})
 	})
+	router.GET("/usersearch", func(Context *gin.Context) {
+		querystring, ok := Context.GetQuery("user")
+		if !ok {
+			go UserSearch(querystring)
+		}
+	})
 	gin.SetMode(gin.ReleaseMode)
 	router.Run(":8080")
 }
